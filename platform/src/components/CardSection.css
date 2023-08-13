@@ -1,0 +1,48 @@
+.card-section {
+    display: flex;
+    justify-content: space-between;
+    padding: 50px;
+  }
+  
+  .card {
+    width: calc(25% - 20px);
+    padding: 20px;
+    margin-left: 8px;
+    background: linear-gradient(135deg, #0074e4, #00a8e8);
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card h2 {
+    margin: 0;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .card-button {
+    padding: 10px 20px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .card-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+  
