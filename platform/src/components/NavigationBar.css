@@ -12,6 +12,14 @@
     font-size: 24px;
     font-weight: bold;
 }
+.logo-link{
+  font-family: sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+  cursor: pointer;
+}
   
   .nav-links {
     font-size: 17px;

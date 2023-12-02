@@ -2,6 +2,7 @@ import './SignUpPage.css'; // Import the CSS file for styling
 import { Link } from 'react-router-dom';
 import  { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 // const SignUpPage = () => {
 //   return (
@@ -31,6 +32,7 @@ const SignUpPage = () => {
   const [graduation_year, setGraduation_year] = useState('');
   const [password, setPassword] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
@@ -40,6 +42,7 @@ const SignUpPage = () => {
       clearFormFields();
       // window.location.reload();
       // You can handle success, navigate to a new page, or update state here
+      navigate('/login');
     } catch (error) {
       console.error(error.response.data.message);
     }

@@ -1,6 +1,7 @@
 import './LoginPage.css'; // Import the CSS file for styling
 import { Link } from 'react-router-dom';
 import  { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 // import axios from 'axios';
 import AuthController from '../src/auth/AuthController';
 // const LoginPage = () => {
@@ -24,7 +25,8 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-
+  
+  const navigate = useNavigate();
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -43,8 +45,8 @@ const LoginPage = () => {
       setErrorMessage('');
       setEmail('');
       setPassword('');
-      console.log(token);
-      
+      // console.log(token);
+      navigate('/');
       // You can handle success, navigate to a new page, or update state here
     } catch (error) {
       console.log(error.response.data);
