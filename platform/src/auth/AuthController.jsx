@@ -1,6 +1,7 @@
 import AuthModel from './AuthModel';
 
 class AuthController {
+  
   async handleLogin(email, password) {
     return AuthModel.login(email, password);
   }
@@ -12,6 +13,10 @@ class AuthController {
   checkAuthentication() {
     return AuthModel.isAuthenticated();
   }
+  isLoggedIn() {
+    return AuthModel.isLoggedIn();
+  }
+  
 }
 
 export default new AuthController();

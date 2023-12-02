@@ -1,0 +1,8 @@
+.expert-page h1 {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-block-end: 20%;
+  height: fit-content;
+  writing-mode: horizontal-tb;
+}

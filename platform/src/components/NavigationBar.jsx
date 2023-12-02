@@ -8,22 +8,31 @@ const NavigationBar = () => {
   const isAuthenticated = AuthController.checkAuthentication();
   const handleLogout = () => {
     AuthController.handleLogout();
-      navigate('/login');
+      navigate('/');
    
     // You might want to redirect to a specific page after logout
   };
   return (
     <nav className="navbar">
-      <div className="logo">Placement Prep</div>
+      <div className="logo">
+      <Link to="/" className="logo-link">
+          Placement Prep
+        </Link>
+      </div>
       <ul className="nav-links">
       <li><Link to="/">Home</Link></li>
         <li><a href="#">Courses</a></li>
         <li><a href="#">Practice</a></li>
         <li><a href="#">About</a></li>
         {isAuthenticated ? (
-          <li>
-            <button onClick={handleLogout}>Logout</button>
-          </li>
+          <>
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+            <li>
+              <button onClick={handleLogout}>Logout</button>
+            </li>
+          </>
         ) : (
           <li>
             <Link to="/login">Login</Link>

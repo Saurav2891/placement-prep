@@ -1,4 +1,4 @@
-const {create,getUserByUserId,getUsers,updateUsers,deleteUsers,getUserByUserEmail} = require("./user.service");
+const {create,getUserByUserId,getUsers,updateUsers,deleteUsers,getUserByUserEmail,getUserLevels} = require("./user.service");
 const {genSaltSync,has, hashSync,compareSync} = require("bcrypt");
 const { sign }=require("jsonwebtoken");
 module.exports ={
@@ -100,7 +100,7 @@ module.exports ={
             if(!results){
                 return res.json({
                     success :0,
-                    data : "Invalid email or passworddd"
+                    data : "Invalid email or password"
                 });
             }
             const result = compareSync(body.password, results.password);
@@ -112,7 +112,8 @@ module.exports ={
                 return res.json({
                     success :1,
                     message : "login successfully",
-                    token:jsontoken
+                    token:jsontoken,
+                    userId: results.user_id,
                 });
             }else{
                 return res.json({
@@ -122,5 +123,17 @@ module.exports ={
                 });
             }
         })
+    },
+    levels:(req,res)=>{
+        getUserLevels((err,results)=>{
+            if(err){
+                console.log(err);
+                return;
+            }
+            return res.json({
+                success : 1,
+                data:results
+            });
+        });
     }
 }
