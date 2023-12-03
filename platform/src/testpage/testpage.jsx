@@ -21,6 +21,8 @@ const TestPage = () => {
   const [isTestActive, setIsTestActive] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [isTimerFrozen, setIsTimerFrozen] = useState(false);
+  const [testStartTime, setTestStartTime] = useState(null);
+  const [testEndTime, setTestEndTime] = useState(null);
 
   const attemptedQuestionsRef = useRef(0);
   const unattemptedQuestionsRef = useRef(0);
@@ -33,6 +35,7 @@ const TestPage = () => {
         console.error('Topic ID is missing in URL parameters');
         return;
     }
+    userDetails.setTopicId(topicId);
     axios.get(`http://localhost:3000/api/test/quiz?topicId=${topicId}`,
     { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
     .then(response => {
@@ -78,7 +81,7 @@ const TestPage = () => {
           });
         }
     }, [topicId]);
-
+    // console.log(userDetails);
     useEffect(() => {
       // API call to store the test record
       const storeTestRecord = async () => {
@@ -88,13 +91,22 @@ const TestPage = () => {
           const testData = {
             // Your test record data
             // For example, user ID, test score, etc.
+            user_id: localStorage.getItem('userId'),
+            level_id: localStorage.getItem('levelId'), // Assuming you have a method to get the level
+            topic_id: userDetails.getTopicId(), // Assuming you have a method to get the topic
+            test_start_time: testStartTime, // Use the recorded start time
+            test_end_time: testEndTime,
+            score: scoreRef.current,
           };
+          // console.log(testData);
   
           // Make the API call
-          const response = await axios.post(apiEndpoint, testData);
+          const response = await axios.post(apiEndpoint, testData, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+          });
   
           // Handle the response as needed
-          console.log('Test record stored successfully:', response.data);
+          // console.log('Test record stored successfully:', response.data);
         } catch (error) {
           console.error('Error storing test record:', error);
   
@@ -109,6 +121,18 @@ const TestPage = () => {
     }, [showPopup]);
 
   const handleStartClick = () => {
+    const startTime = new Date();
+    setTestStartTime(startTime.toISOString().slice(0, 19).replace('T', ' '));
+    // Update the state with the test start time
+    // setTestStartTime(startTime.toLocaleString('en-IN', {
+    //   day: 'numeric',
+    //   month: 'numeric',
+    //   year: 'numeric',
+    //   hour: 'numeric',
+    //   minute: 'numeric',
+    //   second: 'numeric',
+    //   hour12: true,
+    // }));
     setShowStartButton(false);
     setShowTimer(true);
     setShowSubmitButton(true); 
@@ -121,6 +145,17 @@ const handleTestSubmit = () => {
   let correctAnswers = 0;
   let attemptedQuestions = 0;
   let wrongAnswers = 0;
+  const endTime = new Date();
+  setTestEndTime(endTime.toISOString().slice(0, 19).replace('T', ' '));
+  // setTestEndTime(endTime.toLocaleString('en-IN', {
+  //   day: 'numeric',
+  //   month: 'numeric',
+  //   year: 'numeric',
+  //   hour: 'numeric',
+  //   minute: 'numeric',
+  //   second: 'numeric',
+  //   hour12: true,
+  // }));
   
   questions.forEach((question, index) => {
     if (selectedOptions[index] !== null) {
@@ -185,7 +220,7 @@ const handleClose = () => {
           </button>
         )}
         {showTimer && <div className="timer">
-        <CountdownTimer totalTime={10}
+        <CountdownTimer totalTime={60}
         onTimeout={() => {
           handleTestSubmit();
         }}
