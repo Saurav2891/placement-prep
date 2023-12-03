@@ -47,6 +47,8 @@ const CardSection = () => {
   const handleCardClick = (card) => {
     // Set the level and topic in UserDetails
     userDetails.setLevel(card.title);
+    userDetails.setLevelId(card.level);
+    localStorage.setItem('levelId', card.level);
     // Navigate to the card's link
     // history.push(`${card.link}?levelId=${card.level}`);
   };
