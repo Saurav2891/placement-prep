@@ -8,8 +8,23 @@ class UserDetails {
       this.college = '';
       this.domain = '';
       this.graduationYear = '';
+      this.levelid = '';
+      this.topicid = '';
+    }
+
+    setTopicId(topicid) {
+      this.topicid = topicid;
+    }
+    getTopicId() {
+      return this.topicid;
     }
     
+    setLevelId(levelid) {
+      this.levelid = levelid;
+    }
+    getLevelId() {
+      return this.levelid;
+    }
     setId(id) {
         this.id = id;
     }
